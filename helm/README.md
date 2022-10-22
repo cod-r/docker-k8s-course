@@ -38,7 +38,7 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
 ```
 
-```
+```yaml
 # file postgres-values.yml
 ## see https://github.com/bitnami/charts/tree/master/bitnami/postgresql/
 
@@ -51,7 +51,7 @@ primary:
 #eof
 ```
 
-```
+```sh
 # postgres
 helm upgrade --install -f postgres-values.yml --create-namespace --namespace default mypg bitnami/postgresql
 
@@ -62,7 +62,7 @@ kubectl exec -ti dummy -- bash
 ```
 
 Other helm commands:
-```
+```sh
 helm ls  # THIS IS PER NAMESPACE
 helm uiinstall <SMTH>
 helm show chart|readme|values

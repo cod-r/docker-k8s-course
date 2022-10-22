@@ -20,8 +20,8 @@ Check the files here: [kustomize example](kustomize-example).
 
 Kustomize can be used as a standalone tool or directly with `kubectl`:
 
-```
-kustomize build dev
+```sh
+kubectl kustomize dev
 kubectl apply -k dev 
 ```
 

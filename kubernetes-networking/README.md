@@ -1,6 +1,5 @@
 # Kubernetes networking, services, ingress
 
-
 ## Kubernetes network model
 
 - Kubernetes uses a virtual internal network (overlay over nodes IPs)
@@ -8,12 +7,12 @@
 - pods can communicate over this big flat IP network, regardless on which node are they running
 - there are other networking objects in this network
   - services act like loadbalancers
-  - ingresses are like layar 7 loadbalancers, used to route external traffic to internal network
+  - ingresses are like layer 7 loadbalancers, used to route external traffic to internal network
   - networkPolicies are like firewalls
 
 ## Exposing pods
 - Kubernetes has a resource type named *Service* used to solve those problems:
-  - pods get dynamic IP addreses, similar with DHCP
+  - pods get dynamic IP addresses, similar with DHCP
   - how do we connect from outside the cluster?
   - how do we load balance traffic?
   - what if a pod fails?
@@ -48,14 +47,13 @@ and this will create a service with the same name (my-little-deploy).
 - Sometimes, it's the only available option for external traffic
 
 ## Service Loadbalancer
-
 An external (i.e. outside Kubernetes cluster) load balancer is allocated for the service - typically a cloud load balancer, e.g. ELB on AWS, GLB on GCE.
 
 Fow on-premise clusters, there are solutions like *MetalLB* or *kube-vip* but some extra-setup is required.
 
 ## ReadinessProbe
 
-In the container definition (in a pod or deployment or other workload object) we can also define a *ReadynessProbe*, similar with the LivenessProbe.
+In the container definition (in a pod or deployment or other workload object) we can also define a *ReadinessProbe*, similar with the LivenessProbe.
 
 This is used by services to detect when a pod is ready to serve client requests. If the pod is not ready, the service will not route requests to it.
 
@@ -68,7 +66,7 @@ Probes are like in Liveness: HTTP GET, TCP Socket, Exec. For example, Your conta
 With imperative commands, you can use `kubectl expose ...`. 
 
 For yaml manifests, this is an example:
-```
+```yaml
 # service example
 apiVersion: v1
 kind: Service
@@ -83,7 +81,7 @@ spec:
     app: myapp
 ```
 
-```
+```sh
 kubectl get service myapp -n myapp
 kubectl describe service myapp -n myapp
 ```
@@ -103,7 +101,7 @@ testing/dummy pod
 - another solution is Kubernetes Ingress
 
 Exercise
-```
+```sh
 kubectl port-forward service/service-bar 12345:80
 curl localhost:12345
 ```
@@ -111,7 +109,7 @@ curl localhost:12345
 
 ### Example NodePort
 
-```
+```yaml
 # service example
 apiVersion: v1
 kind: Service
@@ -127,7 +125,7 @@ spec:
     app: myapp
 ```
 
-```
+```sh
 kubectl get svc
 NAME             TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
 myapp-nodeport   NodePort    10.43.245.79   <none>        80:31646/TCP   5s
@@ -148,7 +146,7 @@ myapp-nodeport   NodePort    10.43.245.79   <none>        80:31646/TCP   5s
 
 ### Ingress exercise
 
-```
+```yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -170,7 +168,7 @@ spec:
                 number: 80
 ```
 
-```
+```sh
 curl --header 'Host: myapp.localdomain' http://<IP>/
 ```
 

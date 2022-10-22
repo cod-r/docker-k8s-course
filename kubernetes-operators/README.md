@@ -38,7 +38,7 @@ More info:
 
 read https://github.com/zalando/postgres-operator
 
-```
+```sh
 # add repo for postgres-operator
 helm repo add postgres-operator-charts https://opensource.zalando.com/postgres-operator/charts/postgres-operator
 
@@ -47,7 +47,7 @@ helm install postgres-operator postgres-operator-charts/postgres-operator
 ```
 
 create a file
-```
+```yaml
 # minimal-postgres-manifest.yaml
 apiVersion: "acid.zalan.do/v1"
 kind: postgresql
@@ -72,7 +72,7 @@ spec:
     version: "14"
 ```
 
-```
+```sh
 kubectl create -f minimal-postgres-manifest.yaml
 
 # check the deployed cluster

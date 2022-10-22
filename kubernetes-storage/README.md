@@ -28,9 +28,8 @@ The concept of volume is used to provide persistence. In Kubernetes there are ma
 
 *emptyDir* volume type is simple empty directory used for storing transient data. It will not persist data across pod restarts.
 
-```
-# empytdir is used in pods with multiple containers
-
+```yaml
+# empytDir is used in pods with multiple containers
 apiVersion: v1
 kind: Pod
 metadata:
@@ -77,12 +76,12 @@ Design patterns:
 
 ### hostPath volumes
 
-Hostpath is simple and nice but cannot be really used for persistence in clusters with multiple nodes because you usually don't control on which node your pod will be started.
+hostPath is simple and nice but cannot be really used for persistence in clusters with multiple nodes because you usually don't control on which node your pod will be started.
 
 In this example we show how you can mount the *full node filesystem* and see it inside the container under /mnt. 
 
-```
-# hostpath is used to access the NODE filesystem
+```yaml
+# hostPath is used to access the NODE filesystem
 
 apiVersion: v1
 kind: Pod
@@ -104,7 +103,7 @@ spec:
       mountPath: /mnt
 ```
 
-```
+```sh
 kubectl get pods
 
 kubectl exec -ti example-hostpath -- sh
@@ -144,7 +143,7 @@ In some environments, it's possible to have more than one storage class and then
 
 With the storage class in place, you will only need to define a Persistent Volume Claim - observe this is a standalone object, outside the pod - and a POD using it, as in the next example . This will automatically create a Persistent Volume:
 
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -176,7 +175,7 @@ spec:
       storage: 100Mi
 ```
 
-```
+```sh
 kubectl apply -f example1-pvc-pod.yaml 
 kubectl exec -ti example-pod-pvc -- sh
     # touch /data/abc
@@ -192,10 +191,10 @@ You should note various storage classes have various limitations. For example, t
 
 Another important thing regarding storage and deployments is that there is a special kind called StatefulSet which is basically like a deployment plus persistent volumes.
 
-### Deployments vs StafefulSet
+### Deployments vs StatefulSet
 
 - Deployment is a resource to deploy a stateless application, if using a PVC, all replicas will be using the same Volume and none of it will have its own state.
-- Statefulsets is used for Stateful applications, each replica of the pod will have its own state, and will be using its own Volume.
+- StatefulSets is used for Stateful applications, each replica of the pod will have its own state, and will be using its own Volume.
 
 https://stackoverflow.com/questions/41583672/kubernetes-deployments-vs-statefulsets
 

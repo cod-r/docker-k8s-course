@@ -1,14 +1,12 @@
 # Kubernetes intro
 
-Start with this presentation: **Kubernetes intro** (gdrive viorel@esol)
-
 ## Using Kubernetes with Rancher Desktop
 
 - enable Kubernetes in Rancher Desktop
 - run `docker ps` - you will see many (13-14) containers with the name `k8s_...`
-- also the file `~/.kube/config` should be created
+- the file `~/.kube/config` should be created
 
-We plan to use multiple Kubernetes clusters. There are many ways to do this but my prefference is to have a configuration file for each one. So, save that file with another name, then tell `kubectl` to use it with the new name:
+We plan to use multiple Kubernetes clusters. There are many ways to do this but my preference is to have a configuration file for each one. So, save that file with another name, then tell `kubectl` to use it with the new name:
 
 ```
 mv ~/.kube/config ~/.kube/config-rd
@@ -39,7 +37,7 @@ I'll share with you the kubeconfig file, save it under `~/.kube/config-do`.
 
 ## Info about nodes
 
-```
+```sh
 kubectl get nodes
 kubectl get nodes -o wide
 kubectl get nodes -o json   # or yaml
@@ -51,9 +49,9 @@ kubectl describe node <name>
 ## What is a POD?
 
 - Kubernetes uses the concept of POD as the minimal deployable object. 
-- A POD is a group of (usually) one or more containers :
-- running together (on the same node)
-- sharing resources (RAM, CPU; but also network, volumes)
+- A POD is a group of (usually) one or more containers:
+  - running together (on the same node)
+  - sharing resources (RAM, CPU; but also network, volumes)
 - pod's containers are created from container images as with Docker
 
 ---
@@ -66,7 +64,7 @@ kubectl describe node <name>
 
 For the declarative method, you will usually create a `yaml manifest` describing all the aspects of the resource and then use the command `kubectl apply -f <manifest.yaml>` to create the resources.
 
-```
+```yaml
 # nginx2-pod.yaml
 kind: Pod
 apiVersion: v1
@@ -87,7 +85,7 @@ Similarly, you may delete resources:
 
 ## Info about running pods
 
-```
+```sh
 # wide output will show pod's IP and on which node are allocated:
 kubectl get pods -o wide   
 
@@ -107,7 +105,7 @@ kubectl logs nginx
 
 As with Docker, we can enter inside a running pod (container) and run commands inside and copy files in out.
 
-```
+```sh
 kubectl exec -ti nginx -- sh
 kubectl cp nginx:/etc/nginx/nginx.conf /tmp/nginx.conf
 ```
@@ -117,8 +115,8 @@ kubectl cp nginx:/etc/nginx/nginx.conf /tmp/nginx.conf
 ## Namespaces
 
 - Namespaces allow us to segregate resources
-- By default, kubectl will reffer to the namespace `default`
-- Then we can use -n / --namespace with almost every kubectl command
+- By default, kubectl will refer to the namespace `default`
+- Then we can use `-n` / `--namespace` with almost every kubectl command
 
 ```
 kubectl get namespaces
@@ -130,16 +128,16 @@ To create a namespace with imperative commands: `kubectl create namespace my-new
 
 To create a namespace with yaml manifest:
 
-```
+```yaml
 kind: Namespace
 apiVersion: v1
 metadata:
   name: my-new-ns
 ```
 
-To create a pod in a namespace with an yaml manifest, one sigle line must be added:
+To create a pod in a namespace with an yaml manifest, one single line must be added:
 
-```
+```yaml
 # nginx2-pod.yaml
 kind: Pod
 apiVersion: v1
@@ -154,7 +152,7 @@ spec:
 ```
 
 If you wish you can set a default namespace with:
-```
+```sh
 kubectl config set-context --current --namespace=my-namespace
 ```
 
@@ -162,7 +160,7 @@ kubectl config set-context --current --namespace=my-namespace
 
 ## Kubectl style commands
 
-```
+```sh
 kubectl <VERB> <RESOURCE-TYPE> [<RESOURCE-NAME>]
 
 kubectl get|describe|create|delete  nodes|pods|namespaces [-n namespace]
@@ -184,14 +182,19 @@ kubectl get|describe|create|delete  nodes|pods|namespaces [-n namespace]
 
 For demo-ing and sometimes for debugging, I have a handy container image which I like to call it `dummy`. From this I can create pod(s) and do stuff.
 
-Your exercise here is to create a container image from the `Dockerfile`, then to start a pod from this image, then to enter (exec) into this pod and look around. Use the `dummy` directory in from this repo.
+Exercise:
+- create a container image using `dummy/Dockerfile`
+- start a pod from this image
+- enter (exec) into this pod and look around.
+
+Use the `dummy` directory in from this repo.
 
 ## More on PODs
 
 As a final recap on pods:
 - we have shown only a few pod parameters, there are many more and some of them will be uncovered later
 - pods can have one or multiple containers, we'll have example of this later in this course
-- the pod is the *atomic* entity in Kubernetes, a pod runs on a single node (Pod cannot "span" multiple nodes)
+- the pod is the *atomic* entity in Kubernetes, a pod runs on a single node (a pod cannot "span" multiple nodes)
 - The containers in a Pod can crash, they may or may not get restarted (depending on Pod's restart policy)
 
 
