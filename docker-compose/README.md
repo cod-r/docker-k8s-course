@@ -42,7 +42,7 @@ docker-compose --version
 
 ## Sample docker-compose file and networking
 
-```
+```Dockerfile
 # Dockerfile
 FROM ubuntu
 RUN apt-get update -y
@@ -50,7 +50,7 @@ RUN apt-get install -y iputils-ping
 ENTRYPOINT while : ; do echo . ; sleep 60; done
 ```
 
-```
+```yaml
 # docker-compose.yml
 version: "2"
 services:
@@ -61,7 +61,7 @@ services:
 ```
 
 Commands:
-```
+```sh
 docker build -t ubuntu-ping .
 docker-compose up -d
 docker ps
@@ -77,7 +77,7 @@ docker-compose down
 ---
 
 ## Docker-compose building images
-```
+```yaml
 # compose.yml
 version: "2"
 services:
@@ -99,7 +99,7 @@ services:
 - https://hub.docker.com/_/wordpress
 - https://github.com/docker-library/wordpress/blob/dd8724a5b8c21eebd262aebf3593df0e13b5e917/latest/php7.4/apache/Dockerfile
 
-```
+```yaml
 # docker-compose wordpress.yml file
 version: "2"
 services:
@@ -132,7 +132,7 @@ volumes:
 ```
 
 Usage:
-```
+```sh
 docker-compose -f wordpress.yml up -d # starting
 docker volume ls
 docker ps
@@ -152,7 +152,7 @@ https://www.tutorialspoint.com/yaml/yaml_basics.htm
 - Comments in YAML begins with the (#) character.
 - List members are denoted by a leading hyphen (-)
 - Associative arrays are represented using colon ( : ) in the format of key value pair
-- use --- to separe multiple documents 
+- use --- to separate multiple documents 
 
 
 
