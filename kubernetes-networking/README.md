@@ -132,7 +132,7 @@ myapp-nodeport   NodePort    10.43.245.79   <none>        80:31646/TCP   5s
 ```
 
 
-## Kubernetes nginx ingress
+## Kubernetes Ingress
 - Kubernetes Ingresses allow you to flexibly route traffic from outside your Kubernetes cluster to Services inside your cluster.
 - This is accomplished using 
   - Ingress Resources, which define rules for routing HTTP and HTTPS traffic to Kubernetes Services, 
@@ -140,7 +140,7 @@ myapp-nodeport   NodePort    10.43.245.79   <none>        80:31646/TCP   5s
 
 ### Ingress controller
 - Ingress is a default resource in Kubernetes and define traffic rules
-- Ingress Controllers are NOT efault in Kubernetes, there are many implementations
+- Ingress Controllers are NOT default in Kubernetes, there are many implementations
 - some extra install steps are required, unless the Kubernetes distribution has already did that
 - popular Ingress Controllers: nginx-ingress, traefik and others
 

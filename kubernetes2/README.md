@@ -171,13 +171,11 @@ edit the deployment yaml - change image version to 3.12
 kubectl replace -f deploy1.yaml
 kubectl get rs
 
-TBD: Q why kubectl replace and not apply
 ```
 
 ### Exercise
-- create a deployment WITH YAML file for the dummy pod with 1 replicas
+- create a deployment using a YAML file for the dummy pod with 1 replicas (see `kubernetes1/dummy/dummy-pod.yaml`)
 - increase the number of replicas to 2
-- on which nodes are the pods running now?
 - what is happening if you delete one pod with `kubectl delete pod` …?
 
 ---
