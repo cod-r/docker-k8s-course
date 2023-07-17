@@ -1,4 +1,4 @@
-# Building docker containers and using image repositories
+# Building docker images and using image repositories
 
 ## Containerizing applications
 
@@ -21,7 +21,7 @@ FROM mysql
 ENV MYSQL_ROOT_PASSWORD=123456
 ```
 
-```
+```sh
 # run command
 docker build -t mysqlpw .
 ```
@@ -56,7 +56,7 @@ When you create a new image, it's useful to start FROM a specific image. Search 
 ## Exercise: containerizing a simple app ("build it")
 
 ```sh
-# this is myapp.sh
+# myapp.sh
 while :
 do
   echo $RANDOM | nc -l 8888;
@@ -66,7 +66,7 @@ done
 ```
 
 ```Dockerfile
-# this is Dockerfile
+# Dockerfile
 FROM ubuntu:22.04
 RUN apt-get update -y
 RUN apt-get install -y netcat
@@ -77,7 +77,7 @@ ENTRYPOINT ["/bin/bash", "./myapp.sh"]
 # eof
 ```
 
-Create a new directory with those two files ('mkdir myapp') and inside that directory ('cd myapp') run
+Create a new directory containing the above two files ('mkdir myapp') and inside that directory ('cd myapp') run
 
 ```
 docker build -t myapp:latest .    # don't forget the last dot!!!
