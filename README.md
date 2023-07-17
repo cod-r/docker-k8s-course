@@ -21,7 +21,7 @@ We'll try to cover in 3 days
 - Presentation "Kubernetes. But why?"
 - How to access course materials and labs 
   - share a gdrive document 
-    - link https://shorturl.at/eJLM1
+    - link https://shorturl.at/ipvP8
 - [Docker intro](docker/)
 - [Docker build](docker-build/)
 - [Docker compose](docker-compose/)
