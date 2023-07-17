@@ -9,7 +9,7 @@ Containers are
   - it can be run anywhere* (desktop, servers, cloud)
     - *where we have a 'docker engine'
 
-Containers uses a form of virtualization based on Linux kernel features:
+Containers use a form of virtualization based on Linux kernel features:
 - namespaces - to isolate processes
 - cgroups (control groups) - to limit the amount of CPU/memory/disk those processes have access to
 
@@ -209,7 +209,7 @@ A Docker image is a unit of packaging that contains everything required for an a
 - application code (plus the interpreter if it's an interpreted language)
 - application dependencies, shared libraries
 - configuration files
-- OS constructs. 
+- OS constructs 
 
 If you have an application’s Docker image, the only other thing you need to run that application is a computer running Docker engine.
 
@@ -240,7 +240,7 @@ docker info | grep Registry
 ```
 
 - Image registry -> one or more (usually more) image repositories -> one or more versioned images
-- Docker hub has official (for example nginx, mysql etc) repositories and unofficial repositories
+- Docker hub has official repositories (nginx, mysql etc) and unofficial repositories
 
 --- 
 
@@ -276,7 +276,7 @@ docker image push localhost:5000/nginx:2
 - persistent data: 
   - we need to preserve this
   - containers can have one or more VOLUME(s) to store this data
-  - volumes  are separate objects with lifecycle decoupled from containers
+  - volumes are separate objects with lifecycle decoupled from containers
   - deleting a container with volume(s) will not delete the volume(s)
 
 ---
@@ -320,18 +320,19 @@ docker exec -ti ubuntu1 bash
 
 ### Exercise: mysql data volume
 
-Start a mysql container but ensure you will keep the data volume under /root/mysql. Verify it is ok after deleting the container.
+Start a mysql container but ensure you will keep the data volume under ~/mysql on your computer. Verify it is ok after deleting the container.
 
 path inside container: /var/lib/mysql
 
 ### Hints
 ```
 apt install mysql-client
-mkdir /root/mysql
+mkdir ~/mysql
 docker run -d \
      --name mysql1 \
-     -v /root/mysql:/var/lib/mysql \
+     -v ~/mysql:/var/lib/mysql:rw \
      -p 1234:3306 \
+     --user 1000:50 \
      -e MYSQL_ROOT_PASSWORD=123456 \
      mysql
 
@@ -356,8 +357,3 @@ Are you sure you want to continue? [y/N] y
 ```
 docker system prune --volumes
 ```
-
-
-
-
-
